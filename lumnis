@@ -1,125 +1,328 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="pt-BR" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Lumnis – Sistema de Agendamento</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="estilo.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    /* Responsividade modal */
+    #loginModal > div {
+      width: 90%;
+      max-width: 400px;
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-gray-900 via-gray-950 to-black text-gray-200">
-  <header class="sticky top-0 bg-gray-900/80 backdrop-blur-md shadow-lg z-50">
-    <div class="container mx-auto px-4 flex items-center justify-between py-4">
-      <a href="#home" class="text-3xl font-extrabold tracking-wide text-purple-400">Lumnis</a>
-      <nav class="hidden md:flex gap-6 font-medium text-lg">
-        <a class="nav-link hover:text-purple-400 transition" href="#home">Home</a>
-        <a class="nav-link hover:text-purple-400 transition" href="#solucoes">Soluções</a>
-        <a class="nav-link hover:text-purple-400 transition" href="#sobre">Sobre</a>
-        <a class="nav-link hover:text-purple-400 transition" href="#portfolio">Portfólio</a>
+<body class="bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-gray-200">
+  <header class="sticky top-0 bg-gray-900/80 backdrop-blur-md border-b border-white/10 shadow-lg z-50 text-gray-200">
+    <div class="container mx-auto px-4 flex items-center justify-between py-4 flex-wrap md:flex-nowrap">
+      <!-- Logo -->
+      <a href="#home" class="text-3xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 flex-shrink-0">Lumnis</a>
+
+      <!-- Menu centralizado -->
+      <nav class="hidden md:flex gap-8 font-semibold text-lg flex-grow justify-center">
+        <a class="nav-link hover:text-purple-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded" href="#home">Home</a>
+        <a class="nav-link hover:text-purple-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded" href="#sobre">Sobre</a>
+        <a class="nav-link hover:text-purple-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded" href="#portfolio">Portfólio</a>
+        <a class="nav-link hover:text-purple-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded" href="#blog">Blog</a>
+        <a class="nav-link hover:text-purple-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded" href="#faq">FAQ</a>
+        <a class="nav-link hover:text-purple-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded" href="#contato">Fale Conosco</a>
       </nav>
-      <button id="btnMenu" class="md:hidden p-2 text-white" aria-label="Abrir menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
+
+      <!-- Botões à direita -->
+      <div class="flex items-center gap-3 mt-4 md:mt-0 flex-shrink-0">
+        <a href="#contato" class="hidden md:inline-flex items-center bg-purple-600 hover:bg-purple-700 transition-colors px-4 py-2 rounded-full text-white font-semibold text-sm shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500">
+          Começar agora
+        </a>
+        <button id="btnMenu" class="md:hidden p-2 text-gray-200 ml-2 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileNav">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
     </div>
-    <nav id="mobileNav" class="md:hidden hidden flex-col gap-4 px-4 pb-4">
-      <a class="nav-link" href="#home">Home</a>
-      <a class="nav-link" href="#solucoes">Soluções</a>
-      <a class="nav-link" href="#sobre">Sobre</a>
-      <a class="nav-link" href="#portfolio">Portfólio</a>
+    <nav id="mobileNav" class="md:hidden hidden flex-col gap-4 px-4 pb-4 bg-gray-900/90 text-gray-200 border-t border-white/10">
+      <a class="nav-link hover:text-purple-400 transition-colors py-2" href="#home">Home</a>
+      <a class="nav-link hover:text-purple-400 transition-colors py-2" href="#sobre">Sobre</a>
+      <a class="nav-link hover:text-purple-400 transition-colors py-2" href="#portfolio">Portfólio</a>
+      <a class="nav-link hover:text-purple-400 transition-colors py-2" href="#blog">Blog</a>
+      <a class="nav-link hover:text-purple-400 transition-colors py-2" href="#faq">FAQ</a>
+      <a class="nav-link hover:text-purple-400 transition-colors py-2" href="#contato">Fale Conosco</a>
     </nav>
   </header>
 
-  <section id="home" class="relative text-center py-40 px-4 bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1556155092-8707de31f9c4?auto=format&fit=crop&w=1600&q=80')] bg-opacity-10">
-    <div class="backdrop-blur-sm bg-black/50 py-20 px-6 rounded-xl inline-block">
-      <h1 class="text-5xl md:text-7xl font-extrabold text-white drop-shadow-lg">Sistema de Agendamento</h1>
-      <p class="text-lg md:text-2xl text-gray-300 mt-4 max-w-3xl mx-auto">Agilidade, organização e praticidade para sua empresa com tecnologia de ponta.</p>
-      <a href="#sobre" class="mt-8 inline-block bg-purple-600 hover:bg-purple-700 transition px-8 py-4 rounded-full text-white font-semibold text-lg shadow-lg">Saiba mais</a>
-    </div>
-  </section>
-
-  <section id="solucoes" class="py-24 bg-gray-900">
-    <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-16 text-white">Nossas Soluções</h2>
-      <div class="grid gap-10 md:grid-cols-3">
-        <div class="card bg-gradient-to-b from-gray-800 to-gray-900 p-8 rounded-2xl shadow-lg hover:shadow-purple-700/50 transition">
-          <h3 class="text-2xl font-semibold text-purple-400 mb-3">Clínicas Médicas</h3>
-          <p>Agendamento de consultas, prontuários e alertas automáticos para clínicas e hospitais.</p>
-        </div>
-        <div class="card bg-gradient-to-b from-gray-800 to-gray-900 p-8 rounded-2xl shadow-lg hover:shadow-purple-700/50 transition">
-          <h3 class="text-2xl font-semibold text-purple-400 mb-3">Salões de Beleza</h3>
-          <p>Gestão de serviços, profissionais e horários com notificações e histórico de clientes.</p>
-        </div>
-        <div class="card bg-gradient-to-b from-gray-800 to-gray-900 p-8 rounded-2xl shadow-lg hover:shadow-purple-700/50 transition">
-          <h3 class="text-2xl font-semibold text-purple-400 mb-3">Consultorias</h3>
-          <p>Controle de sessões online, integração com pagamento e geração automática de relatórios.</p>
-        </div>
+  <section id="home" class="relative text-center py-40 px-4 bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1556155092-8707de31f9c4?auto=format&fit=crop&w=1600&q=80')]">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70"></div>
+    <div class="relative backdrop-blur-sm bg-black/40 py-14 md:py-20 px-6 md:px-10 rounded-2xl inline-block text-gray-100 shadow-2xl ring-1 ring-white/10">
+      <h1 class="text-5xl md:text-7xl font-extrabold drop-shadow-lg text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400">
+        Gestão de Agendamentos
+      </h1>
+      <p class="text-lg md:text-2xl mt-4 max-w-3xl mx-auto leading-relaxed text-gray-200">
+        Agilidade, organização e praticidade para sua empresa com tecnologia de ponta.
+      </p>
+      <div class="mt-8 flex items-center gap-4 justify-center flex-wrap">
+        <a href="#sobre" class="inline-block bg-purple-600 hover:bg-purple-700 transition-colors px-8 py-4 rounded-full text-white font-semibold text-lg shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500">
+          Saiba mais
+        </a>
+        <a href="#contato" class="inline-block bg-white/10 hover:bg-white/20 transition-colors px-8 py-4 rounded-full text-white font-semibold text-lg shadow-lg ring-1 ring-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500">
+          Fale com a gente
+        </a>
       </div>
     </div>
   </section>
 
-  <section id="sobre" class="py-28 bg-gray-950 text-center md:text-left">
+  <section id="sobre" class="py-28 bg-gray-900 text-center md:text-left text-gray-200">
     <div class="container mx-auto px-6">
-      <h2 class="text-5xl md:text-6xl font-bold text-purple-400 mb-12 text-center">Sobre Nós</h2>
-      <p class="max-w-5xl text-2xl leading-relaxed mx-auto text-gray-200 mb-16">
-        A <span class="font-semibold text-white">Lumnis</span> nasceu para transformar a maneira como empresas organizam seu tempo. Somos um time apaixonado por inovação, que desde 2020 entrega soluções personalizadas de agendamento para empresas de diversos setores. Com foco total em usabilidade e resultado, criamos ferramentas que ajudam negócios a escalar com eficiência.
+      <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Sobre Nós</h2>
+      <p class="max-w-5xl text-xl md:text-2xl leading-relaxed mx-auto mb-14 text-gray-300">
+        A <span class="font-semibold text-purple-400">Lumnis</span> nasceu para transformar a forma como as empresas gerenciam seu tempo. Desde o seu início, conta com um time comprometido com inovação, tecnologia e pessoas. Desenvolvemos soluções de agendamento sob medida para diversos setores, sempre com foco na experiência do usuário e nos resultados que realmente importam.<br /><br />
+        Nosso objetivo é tornar o agendamento mais simples, eficiente e escalável — ajudando negócios a crescer com mais organização e menos esforço.
       </p>
       <div class="grid gap-10 md:grid-cols-3">
-        <div class="p-6 bg-gray-800 rounded-xl shadow">
-          <h3 class="text-2xl text-purple-300 font-semibold mb-2">Missão</h3>
-          <p>Facilitar o dia a dia com tecnologia acessível e inteligente.</p>
+        <div class="p-6 bg-gray-800/80 rounded-xl shadow-lg ring-1 ring-purple-500/20 hover:shadow-purple-500/20 transition-transform hover:-translate-y-1">
+          <h3 class="text-2xl text-purple-400 font-semibold mb-2">Missão</h3>
+          <p class="text-gray-300">Facilitar o dia a dia com tecnologia acessível e inteligente.</p>
         </div>
-        <div class="p-6 bg-gray-800 rounded-xl shadow">
-          <h3 class="text-2xl text-purple-300 font-semibold mb-2">Visão</h3>
-          <p>Ser referência em agendamento inteligente na América Latina.</p>
+        <div class="p-6 bg-gray-800/80 rounded-xl shadow-lg ring-1 ring-purple-500/20 hover:shadow-purple-500/20 transition-transform hover:-translate-y-1">
+          <h3 class="text-2xl text-purple-400 font-semibold mb-2">Visão</h3>
+          <p class="text-gray-300">Ser referência em agendamento inteligente na América Latina.</p>
         </div>
-        <div class="p-6 bg-gray-800 rounded-xl shadow">
-          <h3 class="text-2xl text-purple-300 font-semibold mb-2">Valores</h3>
-          <p>Inovação contínua, ética, foco no cliente e impacto positivo.</p>
+        <div class="p-6 bg-gray-800/80 rounded-xl shadow-lg ring-1 ring-purple-500/20 hover:shadow-purple-500/20 transition-transform hover:-translate-y-1">
+          <h3 class="text-2xl text-purple-400 font-semibold mb-2">Valores</h3>
+          <p class="text-gray-300">Inovação contínua, ética, foco no cliente e impacto positivo.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="portfolio" class="py-28 bg-gradient-to-br from-gray-950 to-gray-900">
+  <section id="portfolio" class="py-28 bg-gradient-to-br from-gray-800 to-gray-900">
     <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-16 text-white">Portfólio de Projetos</h2>
+      <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Portfólio</h2>
+      <p class="max-w-4xl mx-auto text-center text-lg text-gray-300 mb-16">
+        Conheça algumas das soluções que desenvolvemos para diferentes setores. Cada projeto é criado sob medida, com foco em eficiência, simplicidade e resultados reais.
+      </p>
       <div class="grid gap-12 md:grid-cols-3">
-        <div class="p-6 bg-gray-800 rounded-2xl shadow-xl hover:scale-105 transition-transform">
-          <h3 class="text-xl font-semibold text-purple-300 mb-2">Agendamento Clínico</h3>
-          <p>Plataforma para clínicas com prontuário digital, lembretes automáticos e estatísticas avançadas.</p>
+        <div class="p-6 bg-gray-800/80 rounded-2xl shadow-xl ring-1 ring-white/10 hover:scale-[1.02] transition-transform duration-300">
+          <h3 class="text-xl font-semibold text-purple-400 mb-2">Clínicas Médicas</h3>
+          <p class="text-gray-300">Agendamento de consultas com prontuário digital, lembretes automáticos e estatísticas avançadas.</p>
         </div>
-        <div class="p-6 bg-gray-800 rounded-2xl shadow-xl hover:scale-105 transition-transform">
-          <h3 class="text-xl font-semibold text-purple-300 mb-2">Agenda de Beleza</h3>
-          <p>Sistema completo para salões, com múltiplos atendentes e controle financeiro integrado.</p>
+        <div class="p-6 bg-gray-800/80 rounded-2xl shadow-xl ring-1 ring-white/10 hover:scale-[1.02] transition-transform duration-300">
+          <h3 class="text-xl font-semibold text-purple-400 mb-2">Salões de Beleza</h3>
+          <p class="text-gray-300">Sistema completo com múltiplos atendentes, gestão de horários, histórico de clientes e controle financeiro.</p>
         </div>
-        <div class="p-6 bg-gray-800 rounded-2xl shadow-xl hover:scale-105 transition-transform">
-          <h3 class="text-xl font-semibold text-purple-300 mb-2">Consultoria Profissional</h3>
-          <p>Agenda online com links de reunião, automações e relatórios mensais para acompanhamento.</p>
+        <div class="p-6 bg-gray-800/80 rounded-2xl shadow-xl ring-1 ring-white/10 hover:scale-[1.02] transition-transform duration-300">
+          <h3 class="text-xl font-semibold text-purple-400 mb-2">Consultorias</h3>
+          <p class="text-gray-300">Agenda online com sessões virtuais, integração com pagamentos e relatórios mensais automatizados.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <script>
-    const btnMenu = document.getElementById('btnMenu');
-    const mobileNav = document.getElementById('mobileNav');
-    btnMenu.addEventListener('click', () => {
-      mobileNav.classList.toggle('hidden');
-    });
-  </script>
+  <!-- INÍCIO DA SEÇÃO BLOG -->
+  <section id="blog" class="py-28 bg-gradient-to-br from-gray-800 to-gray-900 text-center">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-16">Nosso Blog</h2>
+      <div class="grid gap-12 md:grid-cols-3 text-left">
+        <!-- Artigo 1 -->
+        <div class="p-6 bg-gray-800/80 rounded-2xl shadow-xl ring-1 ring-white/10 transition-transform hover:-translate-y-1">
+          <h3 class="text-xl font-semibold text-purple-400 mb-2">Dicas para uma Agenda Eficiente</h3>
+          <p class="text-gray-300 mb-4">Descubra como organizar seus atendimentos com menos esforço.</p>
+          <details class="text-gray-400 cursor-pointer">
+            <summary class="text-purple-400 hover:underline mb-2">Ler mais</summary>
+            <p class="mt-2 text-sm">
+              Use blocos de horários, evite encaixes apertados e automatize lembretes. Um sistema de agendamento bem estruturado reduz atrasos e melhora a satisfação dos clientes.
+            </p>
+          </details>
+        </div>
 
-  <footer class="bg-gray-900 text-gray-300 py-8">
+        <!-- Artigo 2 -->
+        <div class="p-6 bg-gray-800/80 rounded-2xl shadow-xl ring-1 ring-white/10 transition-transform hover:-translate-y-1">
+          <h3 class="text-xl font-semibold text-purple-400 mb-2">Evite Cancelamentos de Clientes</h3>
+          <p class="text-gray-300 mb-4">Técnicas para reduzir faltas e melhorar sua taxa de comparecimento.</p>
+          <details class="text-gray-400 cursor-pointer">
+            <summary class="text-purple-400 hover:underline mb-2">Ler mais</summary>
+            <p class="mt-2 text-sm">
+              Envie lembretes por WhatsApp ou e-mail, permita que o cliente reagende com facilidade e cobre taxas de no-show quando necessário. Transparência e praticidade reduzem desistências.
+            </p>
+          </details>
+        </div>
+
+        <!-- Artigo 3 -->
+        <div class="p-6 bg-gray-800/80 rounded-2xl shadow-xl ring-1 ring-white/10 transition-transform hover:-translate-y-1">
+          <h3 class="text-xl font-semibold text-purple-400 mb-2">Tecnologia na Gestão de Tempo</h3>
+          <p class="text-gray-300 mb-4">Como sistemas modernos transformam o dia a dia das empresas.</p>
+          <details class="text-gray-400 cursor-pointer">
+            <summary class="text-purple-400 hover:underline mb-2">Ler mais</summary>
+            <p class="mt-2 text-sm">
+              Com plataformas de agendamento online, você centraliza dados, controla métricas e oferece autonomia ao cliente. Isso libera tempo da equipe e melhora a experiência geral.
+            </p>
+          </details>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- FIM DA SEÇÃO BLOG -->
+
+  <section id="faq" class="py-28 bg-gray-900 text-center text-gray-200">
+    <div class="container mx-auto px-6">
+      <h2 class="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-12">Perguntas Frequentes</h2>
+      <div class="space-y-8 text-left max-w-4xl mx-auto">
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-200 mb-2">Como posso agendar uma consulta?</h3>
+          <p class="text-lg text-gray-300">Basta acessar nosso sistema, escolher o serviço, selecionar a data e confirmar. Simples e rápido!</p>
+        </div>
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-200 mb-2">Preciso instalar algo?</h3>
+          <p class="text-lg text-gray-300">Não! Tudo funciona direto no navegador, em qualquer dispositivo.</p>
+        </div>
+        <div>
+          <h3 class="text-2xl font-semibold text-gray-200 mb-2">Consigo cancelar ou reagendar?</h3>
+          <p class="text-lg text-gray-300">Sim, você pode cancelar ou reagendar acessando sua conta com até 24 horas de antecedência.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM DA SEÇÃO FAQ -->
+  <section id="contato" class="py-28 bg-gray-900 text-center text-gray-200">
+    <div class="container mx-auto px-6">
+      <h2 class="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-12">Fale Conosco</h2>
+      <p class="max-w-2xl mx-auto text-lg mb-6 text-gray-300">
+        Tem alguma dúvida ou quer saber mais sobre nossos serviços? Entre em contato com a gente! Estamos prontos para ajudar.
+      </p>
+  
+      <div id="contatoSuccess" class="hidden mb-6 p-4 rounded-xl bg-gray-900 text-purple-300 ring-1 ring-purple-500/30 backdrop-blur-sm" role="status" aria-live="polite">
+        <span class="inline-block font-semibold">Sua mensagem foi enviada!</span>
+      </div>
+  
+      <form id="contatoForm" action="https://formspree.io/f/xovkqork" method="POST" class="bg-gray-800/80 p-8 rounded-xl shadow-xl mx-auto max-w-4xl ring-1 ring-white/10">
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+          <div>
+            <label for="nome" class="block text-gray-200 font-medium mb-2">Nome</label>
+            <input type="text" id="nome" name="nome" class="w-full p-3 bg-gray-900 text-gray-200 rounded-xl border border-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500" required autocomplete="name" />
+          </div>
+          <div>
+            <label for="email" class="block text-gray-200 font-medium mb-2">Email</label>
+            <input type="email" id="email" name="email" class="w-full p-3 bg-gray-900 text-gray-200 rounded-xl border border-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500" required autocomplete="email" inputmode="email" />
+            <p id="emailError" class="hidden mt-2 text-sm text-red-300">Informe um e‑mail válido.</p>
+          </div>
+        </div>
+      
+        <div class="mb-6">
+          <label for="mensagem" class="block text-gray-200 font-medium mb-2">Mensagem</label>
+          <textarea id="mensagem" name="mensagem" rows="6" class="w-full p-3 bg-gray-900 text-gray-200 rounded-xl border border-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500" required></textarea>
+        </div>
+      
+        <input type="hidden" name="_subject" value="Contato do site" />
+        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-full text-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+          Enviar Mensagem
+        </button>
+      </form>
+    </div>
+  </section>
+  
+  <footer class="bg-gray-900 text-gray-400 py-10 border-t border-white/10">
     <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
       <p class="text-sm">&copy; 2025 Lumnis. Todos os direitos reservados.</p>
-      <div class="flex space-x-6">
-        <a href="https://www.instagram.com/lumnis2025/" target="_blank" class="hover:text-purple-400 transition">Instagram</a>
-        <a href="https://www.facebook.com/profile.php?id=61577128574061" target="_blank" class="hover:text-purple-400 transition">Facebook</a>
+      <div class="flex items-center gap-3">
+        <a href="#home" class="hidden md:inline text-xs px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 transition-colors ring-1 ring-white/10">Topo</a>
+        <div class="flex space-x-6">
+          <a href="https://www.instagram.com/lumnis25/" target="_blank" class="hover:text-purple-400 transition-colors">Instagram</a>
+          <a href="https://www.facebook.com/profile.php?id=61577128574061" target="_blank" class="hover:text-purple-400 transition-colors">Facebook</a>
+        </div>
       </div>
     </div>
   </footer>
+
+  <<script>
+    // Menu mobile toggle + fechar ao clicar
+    const btnMenu = document.getElementById('btnMenu');
+    const mobileNav = document.getElementById('mobileNav');
+    const navLinks = document.querySelectorAll('#mobileNav .nav-link, header .nav-link');
+  
+    btnMenu?.addEventListener('click', () => {
+      const isHidden = mobileNav.classList.toggle('hidden');
+      btnMenu.setAttribute('aria-expanded', String(!isHidden));
+    });
+  
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (!mobileNav.classList.contains('hidden')) {
+          mobileNav.classList.add('hidden');
+          btnMenu.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  
+    // Destaque do link ativo durante o scroll
+    const sections = Array.from(document.querySelectorAll('section[id]'));
+    const headerLinks = Array.from(document.querySelectorAll('header .nav-link'));
+  
+    function setActiveLink() {
+      const scrollPos = window.scrollY + 120; // offset para o header
+      let currentId = sections[0]?.id;
+      for (const sec of sections) if (scrollPos >= sec.offsetTop) currentId = sec.id;
+      headerLinks.forEach(a => {
+        if (a.getAttribute('href') === '#' + currentId) {
+          a.classList.add('text-purple-400');
+          a.setAttribute('aria-current', 'page');
+        } else {
+          a.classList.remove('text-purple-400');
+          a.removeAttribute('aria-current');
+        }
+      });
+    }
+    window.addEventListener('scroll', setActiveLink, { passive: true });
+    window.addEventListener('load', setActiveLink);
+  
+    // Envio via Formspree + validação de e-mail + mensagem de sucesso
+    const contatoForm = document.getElementById('contatoForm');
+    const contatoSuccess = document.getElementById('contatoSuccess');
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('emailError');
+  
+    contatoForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+  
+      if (!emailInput.checkValidity()) {
+        emailError?.classList.remove('hidden');
+        emailInput.focus();
+        return;
+      } else {
+        emailError?.classList.add('hidden');
+      }
+  
+      const fd = new FormData(contatoForm);
+  
+      try {
+        const res = await fetch(contatoForm.action, {
+          method: 'POST',
+          body: fd,
+          headers: { 'Accept': 'application/json' }
+        });
+  
+        if (res.ok) {
+          contatoSuccess?.classList.remove('hidden');
+          contatoForm.reset();
+        } else {
+          let msg = 'Não foi possível enviar agora. Tente novamente mais tarde.';
+          try {
+            const data = await res.json();
+            if (data?.errors?.length) msg = data.errors.map(e => e.message).join('\n');
+          } catch (_) {}
+          alert(msg);
+        }
+      } catch {
+        alert('Falha de conexão. Verifique sua internet e tente novamente.');
+      }
+    });
+  </script>
 </body>
 </html>
+ 
