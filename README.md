@@ -16,8 +16,12 @@ Não há dependências de execução ou instalação. Use `npm run check` para c
 
 O formulário preserva o endpoint Formspree já presente no site original: `https://formspree.io/f/xovkqork`. O recebimento depende de esse endpoint continuar ativo e associado ao destinatário correto. Não são criadas contas, reservas, integrações ou pagamentos. A agenda e os serviços apresentados são exemplos ilustrativos com dados fictícios. Não há depoimentos, métricas comerciais ou clientes inventados.
 
-As fontes DM Sans e Manrope são carregadas pelo Google Fonts, com alternativas locais em caso de indisponibilidade. O layout não depende de CDN de JavaScript ou Tailwind.
+As fontes DM Sans e Instrument Serif são carregadas pelo Google Fonts, com alternativas locais em caso de indisponibilidade. O layout não depende de CDN de JavaScript ou Tailwind.
 
 ## Verificação antes de divulgação
 
 Confirmar um recebimento real pelo formulário, revisar os textos comerciais e validar os links sociais. Dados empresariais e informações jurídicas adicionais devem ser fornecidos pela empresa antes de sua inclusão.
+
+## Refinamento visual
+
+Direção editorial com tipografia serifada, roxo profundo, papel e verde oliva. Estrutura com listas e divisórias, menos slogans e decoração. A demonstração permite navegar pelos cinco dias úteis. Mantidos o contato, os links sociais e o caráter ilustrativo dos exemplos.
