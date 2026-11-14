@@ -1,0 +1,490 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Lumnis Agenda API",
+    "version": "1.0.0",
+    "description": "API de agendamento. Modo inicial: demo. Não envia e-mails. Criação exige Authorization Bearer com uma chave aleatória de 32 bytes hexadecimais e Idempotency-Key única; guarde ambos para repetir solicitações sem duplicar registros. A chave Bearer permanece necessária para consultar e alterar a reserva. Login e alterações administrativas exigem Origin igual à origem do servidor. Não há CORS externo habilitado."
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Estado do serviço e banco",
+        "responses": {
+          "200": {
+            "description": "Solicitação concluída"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "409": {
+            "description": "Conflito de horário ou estado"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/api/catalog": {
+      "get": {
+        "summary": "Catálogo de serviços e agendas",
+        "responses": {
+          "200": {
+            "description": "Solicitação concluída"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "409": {
+            "description": "Conflito de horário ou estado"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        }
+      }
+    },
+    "/api/availability": {
+      "get": {
+        "summary": "Horários disponíveis sem dados de clientes",
+        "responses": {
+          "200": {
+            "description": "Solicitação concluída"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "409": {
+            "description": "Conflito de horário ou estado"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        },
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "resourceId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/bookings": {
+      "post": {
+        "summary": "Criar reserva com proteção contra duplicação",
+        "responses": {
+          "200": {
+            "description": "Solicitação concluída"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "409": {
+            "description": "Conflito de horário ou estado"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          },
+          "201": {
+            "description": "Reserva criada"
+          }
+        },
+        "security": [
+          {
+            "BookingKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBooking"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/bookings/{id}": {
+      "get": {
+        "summary": "Consultar reserva pelo link privado",
+        "responses": {
+          "200": {
+            "description": "Solicitação concluída"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "409": {
+            "description": "Conflito de horário ou estado"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        },
+        "security": [
+          {
+            "BookingKey": []
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Cancelar ou reagendar a própria reserva",
+        "responses": {
+          "200": {
+            "description": "Solicitação concluída"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "409": {
+            "description": "Conflito de horário ou estado"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        },
+        "security": [
+          {
+            "BookingKey": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "action"
+                ],
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "enum": [
+                      "cancel",
+                      "reschedule"
+                    ]
+                  },
+                  "startsAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Obrigatório para reagendar"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      ]
+    },
+    "/api/admin/login": {
+      "post": {
+        "summary": "Entrar no painel da equipe",
+        "responses": {
+          "200": {
+            "description": "Solicitação concluída"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "409": {
+            "description": "Conflito de horário ou estado"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "password"
+                ],
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "format": "password"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/session": {
+      "get": {
+        "summary": "Verificar sessão",
+        "responses": {
+          "200": {
+            "description": "Solicitação concluída"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "409": {
+            "description": "Conflito de horário ou estado"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        },
+        "security": [
+          {
+            "AdminSession": []
+          }
+        ]
+      }
+    },
+    "/api/admin/logout": {
+      "post": {
+        "summary": "Sair do painel",
+        "responses": {
+          "200": {
+            "description": "Solicitação concluída"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "409": {
+            "description": "Conflito de horário ou estado"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        },
+        "security": [
+          {
+            "AdminSession": []
+          }
+        ]
+      }
+    },
+    "/api/admin/bookings": {
+      "get": {
+        "summary": "Listar reservas por data",
+        "responses": {
+          "200": {
+            "description": "Solicitação concluída"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "409": {
+            "description": "Conflito de horário ou estado"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        },
+        "security": [
+          {
+            "AdminSession": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ]
+      }
+    },
+    "/api/admin/bookings/{id}": {
+      "patch": {
+        "summary": "Concluir ou cancelar atendimento",
+        "responses": {
+          "200": {
+            "description": "Solicitação concluída"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "409": {
+            "description": "Conflito de horário ou estado"
+          },
+          "429": {
+            "description": "Limite de tentativas"
+          }
+        },
+        "security": [
+          {
+            "AdminSession": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "status"
+                ],
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "cancelled",
+                      "completed"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      ]
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BookingKey": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Chave privada de 64 caracteres hexadecimais, gerada com fonte criptográfica."
+      },
+      "AdminSession": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "lumnis_session"
+      }
+    },
+    "schemas": {
+      "CreateBooking": {
+        "type": "object",
+        "required": [
+          "serviceId",
+          "resourceId",
+          "name",
+          "email",
+          "startsAt",
+          "consent"
+        ],
+        "properties": {
+          "serviceId": {
+            "type": "string"
+          },
+          "resourceId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "startsAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "consent": {
+            "type": "boolean",
+            "const": true
+          }
+        }
+      }
+    }
+  }
+}

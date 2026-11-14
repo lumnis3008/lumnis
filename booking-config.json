@@ -1,0 +1,19 @@
+{
+  "name": "Lumnis Agenda",
+  "mode": "demo",
+  "timezone": "America/Sao_Paulo",
+  "leadMinutes": 60,
+  "horizonDays": 60,
+  "slotMinutes": 15,
+  "weekdays": [1, 2, 3, 4, 5],
+  "hours": [["09:00", "12:00"], ["13:00", "18:00"]],
+  "services": [
+    {"id": "conversa", "name": "Conversa inicial", "duration": 30, "description": "Um primeiro encontro para entender a rotina e as necessidades do negócio.", "resourceIds": ["equipe-1", "equipe-2"]},
+    {"id": "demonstracao", "name": "Demonstração do sistema", "duration": 45, "description": "Conheça o fluxo de agendamento e as possibilidades para sua operação.", "resourceIds": ["equipe-1"]},
+    {"id": "planejamento", "name": "Planejamento do projeto", "duration": 60, "description": "Uma sessão para conversar sobre serviços, equipe e regras de atendimento.", "resourceIds": ["equipe-2"]}
+  ],
+  "resources": [
+    {"id": "equipe-1", "name": "Agenda de exemplo 1", "role": "Atendimento comercial"},
+    {"id": "equipe-2", "name": "Agenda de exemplo 2", "role": "Planejamento"}
+  ]
+}
